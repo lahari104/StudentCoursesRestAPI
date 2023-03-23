@@ -7,8 +7,10 @@ pipeline{
     }
     stages{
         stage('clone'){
-            git url: 'https://github.com/lahari104/StudentCoursesRestAPI.git',
-            branch: 'master'
+            steps{
+                git url: 'https://github.com/lahari104/StudentCoursesRestAPI.git',
+                    branch: 'master'
+            }
         }
         stage('build'){
             steps{
