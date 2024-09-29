@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-restapi-deploy
+  labels:
+    app: scrapi
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable:  25%
+  selector:
+    matchLabels:
+      app: scrapi
+  template:
+    metadata:
+      labels:
+        app: scrapi
+    spec:
+      containers:
+        - name: scrapi-container
+          image: 232589951422.dkr.ecr.us-east-1.amazonaws.com/insignia:student-rest-api-30
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          livenessProbe:
+            exec:
+              command:
+                - ls
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - ls
+            initialDelaySeconds: 15
+            periodSeconds: 10

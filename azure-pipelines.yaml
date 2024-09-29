@@ -1,0 +1,17 @@
+---
+pool: 'Default'
+trigger: 
+  - master
+stages:
+  - stage: 'build'
+    displayName: 'stage to build'
+    jobs:
+      - job: 'build'
+        displayName: 'job to build'
+        steps:
+          - task: Docker@2
+            inputs:
+              containerRegistry: Docker_API_hub
+              repository: lahari23/studentcourserestapi
+              command: 'buildAndPush'
+              Dockerfile: '**/Dockerfile'

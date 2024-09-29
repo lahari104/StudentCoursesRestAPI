@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scrapi-service
+  labels:
+    app: scrapi
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9600
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: scrapi
